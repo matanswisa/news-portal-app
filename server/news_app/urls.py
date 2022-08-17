@@ -3,5 +3,5 @@ from . import views
 
 # URLConf
 urlpatterns = [
-    path('do_something/', views.do_something),
+    path('', views.fetch_news),
 ]
