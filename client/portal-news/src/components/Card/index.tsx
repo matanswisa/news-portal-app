@@ -1,22 +1,43 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import { Navigate, useNavigate } from "react-router";
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { postsState } from '../../recoil-states/atoms';
 
-// interface 
 
-function NewsCard() {
+function PostCard() {
+
+    const navigate = useNavigate();
+
+    const [posts, setPosts] = useRecoilState(postsState);
+
     return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-        </Card>
+
+        <div style={{ margin: '10px' }}>
+            <Row xs={1} md={2} className="g-4">
+                {posts.map((post, idx) => (
+                    <Col>
+                        <Card>
+                            <Card.Img variant="top" src={post.image_url} />
+                            <Card.Body>
+                                <Card.Title>{post.title}</Card.Title>
+                                <Card.Text>
+                                    {post.content}
+                                </Card.Text>
+                                <Button onClick={() => {
+                                    navigate(`/post/${post.id}`)
+                                }}>Read More</Button>
+                                <span style={{ display: 'block' }}>0 views</span>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </div>
     );
 }
 
-export default NewsCard;
+export default PostCard;

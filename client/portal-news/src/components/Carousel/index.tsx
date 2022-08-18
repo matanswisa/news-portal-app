@@ -2,31 +2,16 @@ import { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Data from '../../rawData.json';
 import axios from 'axios';
+import { NewsPosts } from '../../App';
+import { useRecoilState } from 'recoil';
+import { postsState } from '../../recoil-states/atoms';
 
-const IP = 'localhost'
-const port = 8000;
-
-interface NewsPosts {
-    id: number
-    title: string;
-    content: string;
-    image_url: string;
-}
 
 function NewsCarousel() {
 
-    const [posts, setPosts] = useState<Array<NewsPosts>>([]);
 
-    const topPosts = Data.slice(0, 5);
-
-    useEffect(() => {
-        const fetchPosts = async () => {
-            return await axios.get(`http://${IP}:${port}/news`);
-        }
-
-        fetchPosts().then((response) => setPosts(response.data)).catch((error) => console.error(error))
-
-    }, [])
+    const [posts, setPosts] = useRecoilState<Array<NewsPosts>>(postsState);
+    const topPosts = posts.slice(0, 5);
 
     return (
         <Carousel>

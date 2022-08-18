@@ -5,6 +5,7 @@ import React from 'react'
 import NewsCarousel from '../Carousel';
 import './landing.css';
 import { Container } from 'react-bootstrap';
+import PostCard from '../Card';
 
 export default function LandingPage() {
     return (
@@ -12,7 +13,7 @@ export default function LandingPage() {
             <div className="news-feed">
                 <NewsCarousel />
                 <Container>
-                    <h1>Some other news</h1>
+                    <PostCard />
                 </Container>
             </div>
         </>
